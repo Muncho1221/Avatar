@@ -1,17 +1,20 @@
-/* Colores inspirados en las cuatro naciones */
+/* Colores del proyecto */
 :root {
-  --fondo: #f5efe3;
-  --papel: #fffaf0;
-  --texto: #2d2a26;
-  --texto-suave: #6b6359;
-  --borde: #e2d6c1;
-  --principal: #1f3b57;
-  --agua: #2471a3;
-  --tierra: #4e7d3a;
-  --fuego: #c0392b;
-  --aire: #d68910;
-  --otros: #7f8c8d;
-  --sombra: 0 2px 8px rgba(0, 0, 0, 0.12);
+  --fondo: #1C2541;
+  --encabezado: #386641;
+  --contorno: #B08968;
+  --tarjeta: #26304F;
+  --texto: #FFFFFF;
+  --texto-suave: #C5CBDA;
+  --boton: #3A4568;
+
+  /* Elementos */
+  --avatar: #FFFFFF;
+  --tierra: #A7C957;
+  --aire: #BFE3FA;
+  --fuego: #8C3B1B;
+  --agua: #1E5A9C;
+  --otros: #7F8C8D;
 }
 
 * {
@@ -29,24 +32,19 @@ body {
 
 /* ---------- Encabezado ---------- */
 .encabezado {
-  background: linear-gradient(135deg, var(--agua), var(--tierra) 35%, var(--fuego) 70%, var(--aire));
-  color: white;
+  background: var(--encabezado);
+  border: 2px solid var(--contorno);
   text-align: center;
-  padding: 32px 16px;
+  padding: 28px 16px;
 }
 
 .encabezado h1 {
   font-family: "Cinzel", Georgia, serif;
   font-weight: 800;
   font-size: 2.4rem;
+  color: #FFFFFF;
   letter-spacing: 1px;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-}
-
-.subtitulo {
-  max-width: 640px;
-  margin: 8px auto 20px;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  margin-bottom: 16px;
 }
 
 .buscador {
@@ -59,28 +57,28 @@ body {
 .buscador input {
   flex: 1;
   padding: 12px 14px;
-  border: none;
+  border: 1px solid var(--contorno);
   border-radius: 8px;
   font-size: 1rem;
 }
 
 .buscador button {
   padding: 12px 20px;
-  border: none;
+  border: 1px solid var(--contorno);
   border-radius: 8px;
-  background: var(--principal);
-  color: white;
+  background: var(--fondo);
+  color: #FFFFFF;
   font-weight: bold;
   cursor: pointer;
 }
 
 .buscador button:hover {
-  background: #15293d;
+  background: #111933;
 }
 
 /* ---------- Contenido ---------- */
 main {
-  max-width: 1200px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 20px 16px;
 }
@@ -103,31 +101,32 @@ main {
 .vista,
 .nacion {
   padding: 8px 14px;
-  border: 2px solid var(--borde);
+  border: 2px solid var(--boton);
   border-radius: 999px;
-  background: var(--papel);
+  background: var(--boton);
   color: var(--texto);
   font-size: 0.9rem;
   cursor: pointer;
 }
 
 .vista.activa {
-  background: var(--principal);
-  border-color: var(--principal);
-  color: white;
+  background: var(--encabezado);
+  border-color: var(--contorno);
 }
 
+.nacion.avatar { border-color: var(--avatar); }
 .nacion.agua   { border-color: var(--agua); }
 .nacion.tierra { border-color: var(--tierra); }
 .nacion.fuego  { border-color: var(--fuego); }
 .nacion.aire   { border-color: var(--aire); }
 .nacion.otros  { border-color: var(--otros); }
 
-.nacion.activa { color: white; background: var(--principal); border-color: var(--principal); }
+.nacion.activa { background: var(--encabezado); border-color: var(--contorno); }
+.nacion.avatar.activa { background: var(--avatar); color: var(--fondo); }
 .nacion.agua.activa   { background: var(--agua); }
-.nacion.tierra.activa { background: var(--tierra); }
+.nacion.tierra.activa { background: var(--tierra); color: var(--fondo); }
 .nacion.fuego.activa  { background: var(--fuego); }
-.nacion.aire.activa   { background: var(--aire); }
+.nacion.aire.activa   { background: var(--aire); color: var(--fondo); }
 .nacion.otros.activa  { background: var(--otros); }
 
 .check {
@@ -151,9 +150,9 @@ main {
 }
 
 .mensaje.error {
-  color: var(--fuego);
-  background: #fdecea;
-  border: 1px solid #f5c6c0;
+  color: #FFD7CC;
+  background: #4A2230;
+  border: 1px solid var(--fuego);
   border-radius: 8px;
   padding: 16px;
 }
@@ -164,22 +163,21 @@ main {
   margin-bottom: 12px;
 }
 
-/* ---------- Tarjetas ---------- */
+/* ---------- Tarjetas: 3 columnas con scroll vertical ---------- */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
 .tarjeta {
   position: relative;
   display: flex;
   flex-direction: column;
-  background: var(--papel);
+  background: var(--tarjeta);
+  border: 3px solid var(--otros);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: var(--sombra);
-  border-top: 5px solid var(--otros);
   transition: transform 0.15s;
 }
 
@@ -187,17 +185,19 @@ main {
   transform: translateY(-3px);
 }
 
-.tarjeta.agua   { border-top-color: var(--agua); }
-.tarjeta.tierra { border-top-color: var(--tierra); }
-.tarjeta.fuego  { border-top-color: var(--fuego); }
-.tarjeta.aire   { border-top-color: var(--aire); }
+/* El borde cambia según el elemento del personaje */
+.tarjeta.avatar { border-color: var(--avatar); }
+.tarjeta.tierra { border-color: var(--tierra); }
+.tarjeta.aire   { border-color: var(--aire); }
+.tarjeta.fuego  { border-color: var(--fuego); }
+.tarjeta.agua   { border-color: var(--agua); }
 
 .tarjeta img {
   width: 100%;
-  height: 240px;
+  height: 260px;
   object-fit: cover;
   object-position: top;
-  background: var(--borde);
+  background: var(--boton);
 }
 
 .tarjeta .info {
@@ -206,32 +206,12 @@ main {
 
 .tarjeta h3 {
   font-family: "Cinzel", Georgia, serif;
-  font-size: 1.1rem;
-  margin-bottom: 6px;
-}
-
-.etiquetas {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
+  font-size: 1.15rem;
   margin-bottom: 8px;
 }
 
-.etiqueta {
-  font-size: 0.75rem;
-  color: white;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: var(--otros);
-}
-
-.etiqueta.agua   { background: var(--agua); }
-.etiqueta.tierra { background: var(--tierra); }
-.etiqueta.fuego  { background: var(--fuego); }
-.etiqueta.aire   { background: var(--aire); }
-
 .tarjeta p {
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   margin-bottom: 4px;
 }
 
@@ -250,7 +230,6 @@ main {
   background: rgba(255, 255, 255, 0.9);
   font-size: 1.3rem;
   cursor: pointer;
-  box-shadow: var(--sombra);
 }
 
 .btn-favorito:hover {
@@ -266,13 +245,20 @@ main {
 }
 
 .pie a {
-  color: var(--principal);
+  color: var(--tierra);
 }
 
-/* ---------- Celulares ---------- */
+/* ---------- Tabletas: 2 columnas ---------- */
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---------- Celulares: 1 columna ---------- */
 @media (max-width: 600px) {
   .encabezado h1 {
-    font-size: 1.7rem;
+    font-size: 1.8rem;
   }
 
   .buscador {
@@ -285,11 +271,6 @@ main {
   }
 
   .grid {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 12px;
-  }
-
-  .tarjeta img {
-    height: 180px;
+    grid-template-columns: 1fr;
   }
 }

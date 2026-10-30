@@ -68,6 +68,21 @@ function obtenerNaciones(personaje) {
   return naciones;
 }
 
+// La API no indica quién es Avatar, así que usamos una lista de nombres
+const AVATARES = ["Aang", "Korra", "Roku", "Kyoshi", "Kuruk", "Yangchen", "Wan"];
+
+function esAvatar(personaje) {
+  // Quita el texto entre paréntesis para que "Aang (games)" también cuente
+  const nombre = personaje.name.split(" (")[0];
+  return AVATARES.includes(nombre);
+}
+
+// Elemento que define el color del borde de la tarjeta
+function obtenerElemento(personaje) {
+  if (esAvatar(personaje)) return "avatar";
+  return obtenerNaciones(personaje)[0] || "otros";
+}
+
 // Las versiones alternas tienen paréntesis en el nombre, ej. "Aang (games)"
 function esVariante(personaje) {
   return personaje.name.includes("(");
@@ -76,6 +91,8 @@ function esVariante(personaje) {
 function aplicarFiltros(lista) {
   return lista.filter(function (p) {
     if (checkVariantes.checked && esVariante(p)) return false;
+
+    if (nacionActual === "avatar") return esAvatar(p);
 
     const naciones = obtenerNaciones(p);
     if (nacionActual === "otros") return naciones.length === 0;
@@ -120,9 +137,8 @@ function render() {
 }
 
 function crearTarjeta(p) {
-  const naciones = obtenerNaciones(p);
   const tarjeta = document.createElement("article");
-  tarjeta.className = "tarjeta " + (naciones[0] || "otros");
+  tarjeta.className = "tarjeta " + obtenerElemento(p);
 
   const img = document.createElement("img");
   img.src = p.photoUrl || IMAGEN_RESPALDO;
@@ -133,16 +149,10 @@ function crearTarjeta(p) {
     img.src = IMAGEN_RESPALDO;
   }, { once: true });
 
-  const etiquetas = naciones.length
-    ? naciones.map(function (n) { return '<span class="etiqueta ' + n + '">' + nombreNacion(n) + "</span>"; }).join("")
-    : '<span class="etiqueta">Sin nación</span>';
-
   const info = document.createElement("div");
   info.className = "info";
   info.innerHTML =
     "<h3>" + escapar(p.name) + "</h3>" +
-    '<div class="etiquetas">' + etiquetas + "</div>" +
-    "<p><strong>Afiliación:</strong> " + escapar(p.affiliation ? p.affiliation.trim() : "Desconocida") + "</p>" +
     "<p><strong>Aliados:</strong> " + escapar(listaTexto(p.allies)) + "</p>" +
     "<p><strong>Enemigos:</strong> " + escapar(listaTexto(p.enemies)) + "</p>";
 
@@ -162,10 +172,6 @@ function crearTarjeta(p) {
 function mostrarMensaje(texto, esError) {
   mensaje.textContent = texto;
   mensaje.classList.toggle("error", Boolean(esError));
-}
-
-function nombreNacion(n) {
-  return { agua: "💧 Agua", tierra: "⛰️ Tierra", fuego: "🔥 Fuego", aire: "🌪️ Aire" }[n];
 }
 
 function listaTexto(lista) {
