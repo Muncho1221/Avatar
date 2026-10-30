@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explorador Avatar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="encabezado">
+    <h1>Explorador de Avatar</h1>
+    <p class="subtitulo">Agua. Tierra. Fuego. Aire. Conoce a los personajes de <em>Avatar: La leyenda de Aang</em> y <em>La leyenda de Korra</em>.</p>
+
+    <form id="formBusqueda" class="buscador" role="search">
+      <input id="inputBusqueda" type="search" placeholder="Buscar personaje (ej. Aang, Zuko, Toph)..." aria-label="Buscar personaje">
+      <button type="submit">Buscar</button>
+    </form>
+  </header>
+
+  <main>
+    <section class="controles" aria-label="Filtros">
+      <div class="vistas">
+        <button class="vista activa" data-vista="todos">Todos</button>
+        <button class="vista" data-vista="favoritos">Favoritos (<span id="contadorFavoritos">0</span>)</button>
+      </div>
+
+      <div class="naciones">
+        <button class="nacion activa" data-nacion="todas">Todas</button>
+        <button class="nacion agua" data-nacion="agua">💧 Agua</button>
+        <button class="nacion tierra" data-nacion="tierra">⛰️ Tierra</button>
+        <button class="nacion fuego" data-nacion="fuego">🔥 Fuego</button>
+        <button class="nacion aire" data-nacion="aire">🌪️ Aire</button>
+        <button class="nacion otros" data-nacion="otros">Otros</button>
+      </div>
+
+      <label class="check">
+        <input type="checkbox" id="ocultarVariantes" checked>
+        Ocultar versiones alternas (juegos, piloto...)
+      </label>
+    </section>
+
+    <p id="mensaje" class="mensaje" role="status"></p>
+    <p id="resumen" class="resumen"></p>
+
+    <section id="personajes" class="grid"></section>
+  </main>
+
+  <footer class="pie">
+    Datos obtenidos de <a href="https://last-airbender-api.fly.dev/" target="_blank" rel="noopener">The Last Airbender API</a>
+  </footer>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>

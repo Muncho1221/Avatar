@@ -1,0 +1,295 @@
+/* Colores inspirados en las cuatro naciones */
+:root {
+  --fondo: #f5efe3;
+  --papel: #fffaf0;
+  --texto: #2d2a26;
+  --texto-suave: #6b6359;
+  --borde: #e2d6c1;
+  --principal: #1f3b57;
+  --agua: #2471a3;
+  --tierra: #4e7d3a;
+  --fuego: #c0392b;
+  --aire: #d68910;
+  --otros: #7f8c8d;
+  --sombra: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+  line-height: 1.5;
+}
+
+/* ---------- Encabezado ---------- */
+.encabezado {
+  background: linear-gradient(135deg, var(--agua), var(--tierra) 35%, var(--fuego) 70%, var(--aire));
+  color: white;
+  text-align: center;
+  padding: 32px 16px;
+}
+
+.encabezado h1 {
+  font-family: "Cinzel", Georgia, serif;
+  font-weight: 800;
+  font-size: 2.4rem;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.subtitulo {
+  max-width: 640px;
+  margin: 8px auto 20px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.buscador {
+  display: flex;
+  max-width: 560px;
+  margin: 0 auto;
+  gap: 8px;
+}
+
+.buscador input {
+  flex: 1;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.buscador button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  background: var(--principal);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.buscador button:hover {
+  background: #15293d;
+}
+
+/* ---------- Contenido ---------- */
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 16px;
+}
+
+.controles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  margin-bottom: 16px;
+}
+
+.vistas,
+.naciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.vista,
+.nacion {
+  padding: 8px 14px;
+  border: 2px solid var(--borde);
+  border-radius: 999px;
+  background: var(--papel);
+  color: var(--texto);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.vista.activa {
+  background: var(--principal);
+  border-color: var(--principal);
+  color: white;
+}
+
+.nacion.agua   { border-color: var(--agua); }
+.nacion.tierra { border-color: var(--tierra); }
+.nacion.fuego  { border-color: var(--fuego); }
+.nacion.aire   { border-color: var(--aire); }
+.nacion.otros  { border-color: var(--otros); }
+
+.nacion.activa { color: white; background: var(--principal); border-color: var(--principal); }
+.nacion.agua.activa   { background: var(--agua); }
+.nacion.tierra.activa { background: var(--tierra); }
+.nacion.fuego.activa  { background: var(--fuego); }
+.nacion.aire.activa   { background: var(--aire); }
+.nacion.otros.activa  { background: var(--otros); }
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: var(--texto-suave);
+  cursor: pointer;
+}
+
+.mensaje {
+  text-align: center;
+  font-weight: bold;
+  margin: 24px 0;
+}
+
+.mensaje:empty,
+.resumen:empty {
+  display: none;
+}
+
+.mensaje.error {
+  color: var(--fuego);
+  background: #fdecea;
+  border: 1px solid #f5c6c0;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.resumen {
+  color: var(--texto-suave);
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+/* ---------- Tarjetas ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 18px;
+}
+
+.tarjeta {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--papel);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--sombra);
+  border-top: 5px solid var(--otros);
+  transition: transform 0.15s;
+}
+
+.tarjeta:hover {
+  transform: translateY(-3px);
+}
+
+.tarjeta.agua   { border-top-color: var(--agua); }
+.tarjeta.tierra { border-top-color: var(--tierra); }
+.tarjeta.fuego  { border-top-color: var(--fuego); }
+.tarjeta.aire   { border-top-color: var(--aire); }
+
+.tarjeta img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  object-position: top;
+  background: var(--borde);
+}
+
+.tarjeta .info {
+  padding: 14px;
+}
+
+.tarjeta h3 {
+  font-family: "Cinzel", Georgia, serif;
+  font-size: 1.1rem;
+  margin-bottom: 6px;
+}
+
+.etiquetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.etiqueta {
+  font-size: 0.75rem;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--otros);
+}
+
+.etiqueta.agua   { background: var(--agua); }
+.etiqueta.tierra { background: var(--tierra); }
+.etiqueta.fuego  { background: var(--fuego); }
+.etiqueta.aire   { background: var(--aire); }
+
+.tarjeta p {
+  font-size: 0.88rem;
+  margin-bottom: 4px;
+}
+
+.tarjeta p strong {
+  color: var(--texto-suave);
+}
+
+.btn-favorito {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 1.3rem;
+  cursor: pointer;
+  box-shadow: var(--sombra);
+}
+
+.btn-favorito:hover {
+  transform: scale(1.1);
+}
+
+/* ---------- Pie ---------- */
+.pie {
+  text-align: center;
+  padding: 24px 16px;
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+}
+
+.pie a {
+  color: var(--principal);
+}
+
+/* ---------- Celulares ---------- */
+@media (max-width: 600px) {
+  .encabezado h1 {
+    font-size: 1.7rem;
+  }
+
+  .buscador {
+    flex-direction: column;
+  }
+
+  .controles {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+  }
+
+  .tarjeta img {
+    height: 180px;
+  }
+}
